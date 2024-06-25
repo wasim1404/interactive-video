@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Video</title>
+    <script>
+        window.onload = function() {
+            var video = document.getElementById("video");
+            video.ontimeupdate = function() {
+                if (Math.floor(video.currentTime) === 3) {
+                    document.getElementById("question").style.display = "block";
+                    video.pause();
+                    video.removeAttribute("controls");
+                } else {
+                    document.getElementById("question").style.display = "none";
+                }
+            };
+
+            window.submit = function() {
+                if (document.getElementById("op1").checked) {
+                    video.currentTime = 4;
+                    video.play();
+                    video.controls = true;
+                } else if (document.getElementById("op2").checked) {
+                    document.getElementById("warning").innerHTML = "Wrong Answer";
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+    <video id="video" controls autoplay allowfullscreen="0">
+        <source src="http://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        <source src="http://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <section id="question" style="display: none;">
+        <p class="que">What is corona?</p>
+        <input type="radio" id="op1" name="options"><label for="op1">virus</label><br>
+        <input type="radio" id="op2" name="options"><label for="op2">bacteria</label><br>
+        <font style="color: red;" id="warning"></font><br>
+        <button id="submit" onclick="submit()">Submit</button>
+    </section>
+</body>
+</html>
